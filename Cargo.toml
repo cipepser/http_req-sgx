@@ -26,7 +26,7 @@ mesalock_sgx = ["sgx_tstd"]
 
 [dependencies.rustls]
 version = "^0.16"
-git = "https://github.com/mesalock-linux/rustls"
+git = "https://github.com/cipepser/rustls"
 branch = "mesalock_sgx"
 optional = true
 

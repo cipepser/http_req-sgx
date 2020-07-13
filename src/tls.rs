@@ -27,6 +27,17 @@ pub struct Conn<S: io::Read + io::Write> {
     stream: rustls::StreamOwned<rustls::ClientSession, S>,
 }
 
+#[cfg(feature = "rust-tls")]
+impl<S: io::Read + io::Write> Conn<S> {
+    pub fn new(stream: rustls::StreamOwned<rustls::ClientSession, S>) -> Conn<S> {
+        Conn { stream }
+    }
+
+    pub fn get_peer_certificates(&self) -> Option<Vec<rustls::Certificate>> {
+        self.stream.get_peer_certificates()
+    }
+}
+
 impl<S: io::Read + io::Write> io::Read for Conn<S> {
     fn read(&mut self, buf: &mut [u8]) -> Result<usize, io::Error> {
         let len = self.stream.read(buf);
